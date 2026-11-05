@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f5ef">
+  <meta name="description" content="A gentle place for moms to find practical support, small moments of calm, and reminders that they are not alone.">
+  <title>Moms Against Overstimulation — A little room to breathe</title>
+  <style>
+    :root {
+      --ink: #263b35;
+      --muted: #64736c;
+      --paper: #f8f5ef;
+      --white: #fffefa;
+      --sage: #dce8dc;
+      --sage-dark: #52705f;
+      --peach: #f2d5c6;
+      --lavender: #e7e1ef;
+      --line: #e6e5dc;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.65; }
+    a { color: inherit; }
+    button { font: inherit; }
+    .skip-link { position: absolute; left: 1rem; top: -5rem; z-index: 20; padding: .7rem 1rem; background: var(--white); border-radius: 8px; }
+    .skip-link:focus { top: 1rem; }
+    .wrap { width: min(1120px, calc(100% - 3rem)); margin-inline: auto; }
+    .announcement { padding: .55rem 1rem; text-align: center; background: var(--sage); color: #355342; font-size: .82rem; letter-spacing: .025em; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(248,245,239,.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(38,59,53,.08); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; font-weight: 700; font-size: .95rem; line-height: 1.15; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; background: var(--peach); border-radius: 50% 50% 45% 55%; font-size: 1.15rem; }
+    .nav-links { display: flex; align-items: center; gap: 1.8rem; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: .9rem; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links .nav-cta { padding: .7rem 1.15rem; border-radius: 999px; background: var(--ink); color: white; }
+    .menu-toggle { display: none; border: 0; background: transparent; color: var(--ink); font-size: 1.5rem; cursor: pointer; }
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 4rem; padding: 5.2rem 0 5.8rem; }
+    .eyebrow { color: var(--sage-dark); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: .72rem; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.035em; }
+    h1 { margin: .9rem 0 1.2rem; max-width: 650px; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.04; }
+    h1 em { color: var(--sage-dark); font-weight: 400; }
+    .hero-copy { max-width: 510px; color: var(--muted); font-size: 1.08rem; }
+    .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .85rem; margin-top: 1.8rem; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .75rem 1.25rem; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: white; text-decoration: none; font-weight: 650; font-size: .9rem; transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); background: #38564b; }
+    .button.secondary { background: transparent; color: var(--ink); }
+    .button.secondary:hover { background: white; }
+    .hero-note { margin: 1.2rem 0 0; color: var(--muted); font-size: .8rem; }
+    .hero-art { min-height: 440px; position: relative; display: grid; place-items: center; }
+    .sun { position: absolute; width: min(390px, 85%); aspect-ratio: 1; background: var(--peach); border-radius: 49% 51% 47% 53% / 52% 45% 55% 48%; transform: rotate(-8deg); }
+    .sun::before { content: ''; position: absolute; inset: 20px; border: 1px solid rgba(82,112,95,.18); border-radius: 50%; }
+    .art-card { z-index: 1; width: min(330px, 76%); padding: 2rem; background: var(--white); border-radius: 48% 48% 20px 20px; box-shadow: 0 25px 70px rgba(48,64,54,.12); text-align: center; }
+    .art-illustration { height: 170px; position: relative; display: grid; place-items: center; font-size: 6rem; }
+    .art-illustration span { filter: saturate(.7); }
+    .art-card p { margin: .5rem 0 0; color: var(--muted); font-family: var(--serif); font-size: 1.15rem; }
+    .floating { position: absolute; z-index: 2; padding: .75rem 1rem; background: var(--white); border-radius: 14px; box-shadow: 0 10px 30px rgba(48,64,54,.09); font-size: .83rem; }
+    .floating.one { top: 10%; right: 0; transform: rotate(4deg); }
+    .floating.two { bottom: 10%; left: 0; transform: rotate(-4deg); }
+    .section { padding: 5.5rem 0; }
+    .section-heading { max-width: 650px; margin: 0 auto 2.8rem; text-align: center; }
+    .section-heading h2 { margin: .65rem 0 .8rem; font-size: clamp(2.3rem, 4vw, 3.5rem); line-height: 1.12; }
+    .section-heading p { color: var(--muted); }
+    .support-section { background: var(--white); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+    .card { min-height: 250px; padding: 1.7rem; border: 1px solid var(--line); border-radius: 18px; background: var(--paper); }
+    .card:nth-child(2) { background: #f5eee8; }
+    .card:nth-child(3) { background: #f0eef4; }
+    .card-icon { width: 44px; height: 44px; display: grid; place-items: center; margin-bottom: 1.1rem; border-radius: 50%; background: var(--sage); font-size: 1.25rem; }
+    .card:nth-child(2) .card-icon { background: var(--peach); }
+    .card:nth-child(3) .card-icon { background: var(--lavender); }
+    .card h3 { margin-bottom: .55rem; font-family: var(--serif); font-size: 1.45rem; font-weight: 400; }
+    .card p { margin: 0; color: var(--muted); font-size: .92rem; }
+    .breather { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 4rem; }
+    .breather-art { min-height: 330px; display: grid; place-items: center; position: relative; border-radius: 48% 52% 48% 52%; background: var(--sage); }
+    .breather-art::before, .breather-art::after { content: ''; position: absolute; width: 230px; height: 230px; border: 1px solid rgba(82,112,95,.25); border-radius: 50%; animation: breathe 8s ease-in-out infinite; }
+    .breather-art::after { width: 175px; height: 175px; animation-delay: -4s; }
+    @keyframes breathe { 0%, 100% { transform: scale(.82); opacity: .55; } 50% { transform: scale(1.12); opacity: 1; } }
+    .breather-word { z-index: 1; text-align: center; font-family: var(--serif); font-size: 2rem; }
+    .breather-copy h2 { margin: .65rem 0 1rem; font-size: clamp(2.3rem, 4vw, 3.5rem); line-height: 1.1; }
+    .breather-copy p { color: var(--muted); }
+    .breath-button { margin-top: .7rem; cursor: pointer; }
+    .breath-status { min-height: 1.5em; margin: .8rem 0 0; color: var(--sage-dark); font-size: .9rem; }
+    .community { padding: 4.7rem 0; background: #eee9e1; text-align: center; }
+    .community h2 { max-width: 720px; margin: .6rem auto 1rem; font-size: clamp(2.3rem, 4vw, 3.8rem); line-height: 1.12; }
+    .community p { max-width: 610px; margin: 0 auto 1.5rem; color: var(--muted); }
+    .resources { background: var(--white); }
+    .resource-row { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: 1.35rem 0; border-top: 1px solid var(--line); }
+    .resource-row:last-child { border-bottom: 1px solid var(--line); }
+    .resource-row h3 { margin: 0 0 .2rem; font-family: var(--serif); font-size: 1.25rem; font-weight: 400; }
+    .resource-row p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .resource-row a { flex: 0 0 auto; color: var(--sage-dark); font-size: .88rem; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .crisis { margin-top: 2rem; padding: 1.1rem 1.3rem; border-radius: 12px; background: #f7eee8; color: #644d42; font-size: .88rem; }
+    footer { padding: 2.2rem 0; color: var(--muted); font-size: .82rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .footer-inner p { margin: 0; }
+    :focus-visible { outline: 3px solid #9a6b45; outline-offset: 4px; }
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 2rem, 560px); }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 65px; left: 0; right: 0; padding: 1rem 1.25rem 1.3rem; flex-direction: column; align-items: stretch; gap: 1rem; background: var(--paper); border-bottom: 1px solid var(--line); }
+      .nav-links.open { display: flex; }
+      .nav-links .nav-cta { text-align: center; }
+      .hero { grid-template-columns: 1fr; gap: 1rem; padding: 4rem 0 3rem; }
+      .hero-art { min-height: 350px; }
+      .sun { width: min(310px, 80%); }
+      .art-card { width: min(275px, 75%); padding: 1.2rem; }
+      .art-illustration { height: 140px; }
+      .floating.one { right: 2%; }
+      .floating.two { left: 1%; }
+      .section { padding: 4rem 0; }
+      .cards { grid-template-columns: 1fr; }
+      .card { min-height: 0; }
+      .breather { grid-template-columns: 1fr; gap: 2.5rem; }
+      .breather-art { min-height: 280px; order: 2; }
+      .resource-row { align-items: flex-start; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="announcement">You deserve support, too. You don't have to do it all alone.</div>
+  <header>
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Moms Against Overstimulation home"><span class="brand-mark" aria-hidden="true">☼</span><span>Moms Against<br>Overstimulation</span></a>
+      <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#support">Find support</a><a href="#pause">Take a pause</a><a href="#resources">Resources</a>
+        <a class="nav-cta" href="#community">You belong here</a>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div>
+        <span class="eyebrow">A softer place to land</span>
+        <h1 id="hero-title">You can love them <em>and need a minute.</em></h1>
+        <p class="hero-copy">Motherhood can be beautiful, loud, relentless, and a lot to hold. This is a gentle corner of the internet for honest support, practical tools, and the reminder that you are not alone.</p>
+        <div class="actions"><a class="button" href="#support">Find your next step</a><a class="button secondary" href="#pause">Pause with us</a></div>
+        <p class="hero-note">No judgment. No perfect-mom checklist. Just room to breathe.</p>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a warm, calm place to rest">
+        <div class="sun"></div>
+        <div class="floating one">One moment at a time ✨</div>
+        <div class="floating two">You are not alone 🤍</div>
+        <div class="art-card"><div class="art-illustration" aria-hidden="true"><span>🌿</span></div><p>“A small pause is still a pause.”</p></div>
+      </div>
+    </section>
+
+    <section class="section support-section" id="support" aria-labelledby="support-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">Start where you are</span><h2 id="support-title">Support for the real, messy middle.</h2><p>You don't need to have the right words or a five-step plan. Pick what feels helpful today.</p></div>
+        <div class="cards">
+          <article class="card"><div class="card-icon" aria-hidden="true">♡</div><h3>Feel understood</h3><p>Explore honest reflections on overstimulation, guilt, identity, and the feelings that can be hard to say out loud.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">☁</div><h3>Find a little calm</h3><p>Try small, realistic grounding ideas for loud days, busy moments, and when your senses feel like too much.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">✿</div><h3>Reach for support</h3><p>Learn how to ask for help and find professional care when you want more support than a website can offer.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap breather" id="pause" aria-labelledby="pause-title">
+      <div class="breather-art" aria-hidden="true"><div class="breather-word">Inhale<br>...<br>exhale</div></div>
+      <div class="breather-copy"><span class="eyebrow">A tiny reset</span><h2 id="pause-title">Let's make a little room.</h2><p>If it feels comfortable, let your shoulders soften. Take an easy breath in, then let it out slowly. There's no special way to do this—and you can stop whenever you like.</p><button class="button breath-button" id="breath-button" type="button">Guide me for a moment</button><p class="breath-status" id="breath-status" role="status" aria-live="polite"></p></div>
+    </section>
+
+    <section class="community" id="community" aria-labelledby="community-title">
+      <div class="wrap"><span class="eyebrow">A reminder for today</span><h2 id="community-title">You are a person, not just everyone else's safe place.</h2><p>Your needs matter. Your limits matter. Asking for support is not a failure; it is one way of caring for yourself and your family.</p><a class="button" href="#resources">Explore supportive resources</a></div>
+    </section>
+
+    <section class="section resources" id="resources" aria-labelledby="resources-title">
+      <div class="wrap">
+        <div class="section-heading"><span class="eyebrow">More support, when you're ready</span><h2 id="resources-title">You don't have to figure it out alone.</h2><p>These are starting points for learning and finding care. Choose what fits your situation.</p></div>
+        <div class="resource-row"><div><h3>Talk with a mental health professional</h3><p>A licensed therapist or healthcare provider can help you explore what you're experiencing and discuss options.</p></div><a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener noreferrer">Find a therapist ↗</a></div>
+        <div class="resource-row"><div><h3>Learn about postpartum mental health</h3><p>Information and support for emotional health during pregnancy and after a new baby arrives.</p></div><a href="https://www.postpartum.net/" target="_blank" rel="noopener noreferrer">Postpartum Support International ↗</a></div>
+        <div class="crisis"><strong>Need urgent help?</strong> If you or someone else is in immediate danger, contact your local emergency services. In the U.S. and Canada, call or text <strong>988</strong> for crisis support. If you're elsewhere, find a crisis line in your country.</div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">☼</span><span>Moms Against Overstimulation</span></a><p>This site offers peer support and general information, not medical advice or a substitute for professional care.</p><p>Made with care for the days that ask a lot of you. © <span id="year"></span></p></div></footer>
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+      navLinks.classList.toggle('open', !isOpen);
+    });
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open navigation menu');
+      }
+    });
+    document.querySelector('#year').textContent = new Date().getFullYear();
+    const breathButton = document.querySelector('#breath-button');
+    const breathStatus = document.querySelector('#breath-status');
+    let breathTimer;
+    breathButton.addEventListener('click', () => {
+      clearTimeout(breathTimer);
+      breathButton.disabled = true;
+      breathStatus.textContent = 'Breathe in gently...';
+      breathTimer = setTimeout(() => {
+        breathStatus.textContent = 'Now let your breath out slowly. You can return to this moment whenever you need.';
+        breathButton.disabled = false;
+      }, 3500);
+    });
+  </script>
+</body>
+</html>
